@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.jiekou.mapper.UserInfoMapper">
+
+    <resultMap id="UserInfoResult" type="com.example.jiekou.entity.UserInfoDTO">
+        <result property="id" column="id" />
+        <result property="account" column="account" />
+        <result property="password" column="password" />
+        <result property="name" column="name" />
+    </resultMap>
+
+
+    <select id="queryUserInfoByName" resultMap="UserInfoResult">
+        SELECT u.* FROM user_info u WHERE name = #{name}
+    </select>
+
+
+    <select id="queryUserInfoByAccount" resultMap="UserInfoResult">
+        SELECT u.* FROM user_info u WHERE account = #{account}
+    </select>
+
+    <insert id="insertUserInfo">
+        insert into user_info
+            (id, account, password, name)
+        values
+            (#{userInfo.id}, #{userInfo.account}, #{userInfo.password}, #{userInfo.name})
+    </insert>
+
+    <select id="queryAllUser" resultMap="UserInfoResult">
+        select u.* from user_info u;
+    </select>
+
+    <select id="queryUsers" parameterType="java.util.HashMap" resultMap="UserInfoResult">
+        select * from user_info where 1 = 1
+        <if test="queryInfo.account != null">
+            and account like #{queryInfo.account}
+        </if>
+        <if test="queryInfo.name != null">
+            and name like #{queryInfo.name}
+        </if>
+        <if test="queryInfo.password != null">
+            and password like #{queryInfo.password};
+        </if>
+    </select>
+
+    <update id="updateUserInfo">
+        update user_info
+        set
+            name = #{userInfo.name},
+            password = #{userInfo.password}
+        where account = #{userInfo.account}
+    </update>
+
+
+</mapper>

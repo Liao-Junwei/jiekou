@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: jiekou-service
+  datasource:
+    name: sqldemo
+    url: jdbc:mysql://localhost:3306/sqldemo?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC #url
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver  #com.mysql.jdbc.Driver被弃用，换成com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-test-query: select 1 from dual
+      auto-commit: true
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+#  type-aliases-package: com.example.jiekou.bean
